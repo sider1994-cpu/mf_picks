@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'widgets/pick_card.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 // Lista de predicciones del día
 const List<Map<String, String>> picksDelDia = [
   {
