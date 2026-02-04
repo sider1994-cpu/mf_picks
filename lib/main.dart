@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'widgets/pick_card.dart';
 void main() {
   runApp(const MyApp());
 }
