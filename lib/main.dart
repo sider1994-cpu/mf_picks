@@ -74,41 +74,22 @@ body: Padding(
       ),
       const SizedBox(height: 20),
       Expanded(
-        child: ListView(
-          children: const [
-            PickCard(
-              partido: 'Pumas vs Santos',
-              pick: 'Over 2.5',
-              momio: '1.85',
-            ),
-            PickCard(
-              partido: 'Juárez vs Cruz Azul',
-              pick: 'BTTS Sí',
-              momio: '1.90',
-            ),
-            PickCard(
-              partido: 'Forge vs Tigres',
-              pick: 'Tigres Avanza',
-              momio: '1.70',
-            ),
-            PickCard(
-              partido: 'América vs Monterrey',
-              pick: 'Over 2.5',
-              momio: '1.80',
-            ),
-            PickCard(
-              partido: 'Chivas vs León',
-              pick: 'BTTS Sí',
-              momio: '1.75',
-            ),
-            PickCard(
-              partido: 'Atlas vs Santos',
-              pick: 'Under 3.0',
-              momio: '1.90',
-            ),
-          ],
-        ),
-      ),
-    ],
+  child: FutureBuilder<List<Map<String, String>>>(
+    future: cargarPicks(), // Aquí le decimos que lea el JSON
+    builder: (context, snapshot) {
+      if (!snapshot.hasData) {
+        return const Center(child: CircularProgressIndicator()); // Muestra cargando mientras lee
+      }
+      final picks = snapshot.data!;
+      return ListView(
+        children: picks.map((pick) {
+          return PickCard(
+            partido: pick['partido']!,
+            pick: pick['pick']!,
+            momio: pick['momio']!,
+          );
+        }).toList(),
+      );
+    },
   ),
 ),
